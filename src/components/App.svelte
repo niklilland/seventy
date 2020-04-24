@@ -5,25 +5,15 @@
     </h1>
   </header>
   <main>
-
-
-  <!-- TODO: Verse picker -->
-  <!-- TODO: String's definition -->
-  <!-- TODO: Split pane -->
-  <!-- TODO: Left pane: Matches in OT -->
-  <!-- TODO: Right pane: OT verse based on left pane match selected -->
-
-
-
-
     <div class="left-gutter">
-      <NewTestamentViewer />
     </div>
     <div class="center">
-      <!-- TODO: Center -->
+      <VerseInput />
+      <WordSelector />
+      <!-- TODO: Selected word Strong's definition -->
+      <!-- TODO: Matches for word: OT verses that match the selected word -->
     </div>
     <div class="right-gutter">
-      <!-- TODO: Right gutter -->
     </div>
   </main>
   <footer>
@@ -34,7 +24,9 @@
 
 
 <script>
-  import NewTestamentViewer from './NewTestament.svelte';
+  import 'bulma/css/bulma.css';
+  import VerseInput from './VerseInput.svelte';
+  import WordSelector from './WordSelector.svelte'
 
   export let name;
 </script>
@@ -69,15 +61,17 @@
     height: 50px;
   }
   .left-gutter {
-    width: 33.33%;
+    width: 8%;
     background-color: #fc0283;
   }
   .right-gutter {
-    width: 33.33%;
+    width: 8%;
     background-color: #f802fc;
   }
   .center {
     flex: 1;
+    display: flex;
+    flex-direction: column;
   }
   @media (min-width: 640px) {
     main {
