@@ -2,6 +2,10 @@
 
 https://wireframe.cc/gxfLut
 
+# TODO list:
+- Legacy browser support
+- Conditionally disable dimport for local development
+
 ---
 
 # svelte app

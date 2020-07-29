@@ -40,5 +40,9 @@
     "svelte": "^3.0.0",
     "svelte-preprocess": "^3.7.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "axios": "^0.19.2",
+    "levenshtein-edit-distance": "^2.0.5",
+    "simple-svelte-autocomplete": "^1.1.2"
+  }
 }
