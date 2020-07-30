@@ -8,7 +8,6 @@
   import { createEventDispatcher, beforeUpdate } from 'svelte';
   import axios from 'axios';
   import EnglishVerse from './EnglishVerse.svelte';
-  import foo from '../data/1Chronicles/1';
 
   let chapterContents = [];
 
