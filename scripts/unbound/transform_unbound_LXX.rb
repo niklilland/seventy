@@ -13,13 +13,6 @@ book_code_path = '/Users/niklaslilland/dev/king-json-bible/LXX/unbound-source/_b
 trans_actual_path = '/Users/niklaslilland/dev/king-json-bible/LXX/unbound-transformed/transformed-actual-source.txt'
 trans_lemma_path = '/Users/niklaslilland/dev/king-json-bible/LXX/unbound-transformed/transformed-lemma-source.txt'
 
-manual = {
-  '01O' => {
-    '31' => "01O\t31\t51\t01O\t31\t51\t\t0\t\n",
-    '35' => "01O\t35\t21\t01O\t35\t\t\t0\t\n"
-  }
-}
-
 @actual_file = File.open(actual_path, 'r')
 @trans_actual = File.new(trans_actual_path, 'w+')
 @book_file = File.open(book_code_path, 'r')
@@ -41,7 +34,7 @@ end
 @prev_chapter = nil
 @prev_verse = nil
 @prev_subverse = nil
-file_length = 30041
+file_length = 30044
 
 def insert_verses(book, chapter, next_verse, subverse, prev_verse)
   # If the previous verse is greater than the next verse (e.g. 25, then 5), fill in starting from 1
@@ -96,23 +89,12 @@ while @actual_file.lineno <= file_length
   else
     # If missing verses at start of chapter, insert verses
     if @verse_tracker[sept_book][sept_chapter].empty? && sept_verse.to_i != 1
-      # If there is a subverse value
-      if sept_subverse != ''
-        # It's a new chapter, the verse we're processing is not 1, and there's a subverse.
-        # Can this even happen?
-        puts 'TEST VALUE FINDME'
-      else
-        # First n verses are missing in chapter, insert them
-        insert_verses(sept_book, sept_chapter, sept_verse.to_i, sept_subverse, @prev_verse)
-        process_verse(sept_book, sept_chapter, sept_verse, sept_subverse, input)
-      end
-
-
-    # # If the verse is the same as the previous, and the subverse value of current or last isn't empty, it's a subverse!
-    # elsif (@verse_tracker[sept_book][sept_chapter][-1].to_i == sept_verse.to_i) && (sept_subverse != '' || @prev_subverse != '')
-    #   puts 'subverse'
-    #   process_verse(sept_book, sept_chapter, sept_verse, sept_subverse, input)
-  
+      # First n verses are missing in chapter, insert them
+      insert_verses(sept_book, sept_chapter, sept_verse.to_i, sept_subverse, @prev_verse)
+      process_verse(sept_book, sept_chapter, sept_verse, sept_subverse, input)
+    # If the verse is the same as the previous, and the subverse value of current or last isn't empty, it's a subverse!
+    elsif (@verse_tracker[sept_book][sept_chapter][-1].to_i == sept_verse.to_i) && (sept_subverse != '' || @prev_subverse != '')
+      process_verse(sept_book, sept_chapter, sept_verse, sept_subverse, input)
     # If the current verse is not the last verse processed + 1, we're missing n verses, grab them from @buffer
     elsif @verse_tracker[sept_book][sept_chapter][-1].to_i + 1 != sept_verse.to_i
       # Get n values from @buffer, then process current verse
